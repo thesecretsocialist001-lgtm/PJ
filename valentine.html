@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine</title>
+
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff);
+    animation: bgMove 6s infinite alternate;
+  }
+
+  @keyframes bgMove {
+    0% { background-position: left; }
+    100% { background-position: right; }
+  }
+
+  .box {
+    position: relative;
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+    color: #ff165d;
+    text-shadow: 2px 2px #fff;
+    animation: pop 1.2s infinite alternate;
+  }
+
+  @keyframes pop {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+  }
+
+  button {
+    padding: 14px 28px;
+    font-size: 20px;
+    margin: 12px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+
+  #yes {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+  }
+
+  #yes:hover {
+    transform: scale(1.1);
+  }
+
+  #no {
+    background: #555;
+    color: white;
+    position: absolute;
+  }
+
+  /* Floating Hearts */
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    font-size: 22px;
+    animation: floatUp linear infinite;
+    opacity: 0.8;
+  }
+
+  @keyframes floatUp {
+    from {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-110vh) scale(1.5);
+      opacity: 0;
+    }
+  }
+
+  .final {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #ff165d;
+    text-shadow: 3px 3px #fff;
+    animation: pop 1s infinite alternate;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box" id="main">
+  <h1>Will you be my Valentine, Palak? 💖</h1>
+  <div>
+    <button id="yes" onclick="yesClick()">YES 💘</button>
+    <button id="no" onmouseover="moveNo()">NO 🙈</button>
+  </div>
+</div>
+
+<script>
+function moveNo() {
+  const btn = document.getElementById("no");
+  btn.style.left = Math.random() * 80 + "vw";
+  btn.style.top = Math.random() * 80 + "vh";
+}
+
+/* Create floating hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = ["💖","💕","💘","❤️","💞"][Math.floor(Math.random()*5)];
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (3 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 7000);
+}
+
+setInterval(createHeart, 250);
+
+function yesClick() {
+  document.body.innerHTML = `
+    <div class="final">
+      HAPPY VALENTINE DAY ❤️💖💘
+    </div>
+  `;
+}
+</script>
+
+</body>
+</html>
